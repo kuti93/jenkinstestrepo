@@ -1,0 +1,20 @@
+pipeline {
+    agent any
+    stages {
+        stage('connection') {
+            steps {
+                sh 'mysql --user rfamro --host mysql-rfam-public.ebi.ac.uk --port 4497 --database Rfam'
+            }
+        }
+        stage('sql-request') {
+            steps {
+              sql: select * from fr.fram_acc limit 1
+            }
+        }
+        stage('3rdstep') {
+            steps {
+                //
+            }
+        }
+    }
+}
