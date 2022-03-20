@@ -21,8 +21,12 @@ pipeline {
             }
         }
         stage('3rdstep') {
+        //build docker trough Dockerfile
             steps {
-                //
+            echo "==========Building NGINX"
+            dir (''){
+            sh 'docker build .'
+                }
             }
         }
     }

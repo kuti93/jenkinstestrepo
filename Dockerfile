@@ -1,1 +1,2 @@
-RUN
+FROM nginx:latest
+ADD
