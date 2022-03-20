@@ -10,6 +10,11 @@ pipeline {
         timestamps() //пометка времени в исполнении шагов женкинса
     }
         stages {
+        stage('download code from GIT') {
+            steps {
+              sh "git clone https://github.com/kuti93/jenkinstestrepo.git"
+            }
+        }
         stage("create docker image"){ //собирания докер билда через докерфайл которое в гите
             steps {
             echo "==========Building NGINX from hosted git============"
