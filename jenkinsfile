@@ -9,7 +9,7 @@ pipeline {
         buildDiscarder(logRotator(numToKeepStr:'10', artifactNumToKeepStr:'10')) //логирования и создание артифактов
         timestamps() //пометка времени в исполнении шагов женкинса
     }
-        stage("build docker") {
+        stages("build docker") {
         //собирания докер билда через докерфайл которое в гите
             steps {
             echo "==========Building NGINX from hosted git============"
