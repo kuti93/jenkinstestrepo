@@ -1,5 +1,14 @@
+#!groovy
+//Run docker build
+properties([disableConcurrentBuilds()]) //не запускать паралельно
+
 pipeline {
     agent any
+    triggers {pollSCM('*****')} //проверка кода в гите каждую минуту
+    options{
+        buildDiscarder(logRotator(numToKeepStr:'10', artifactNumToKeepStr:'10'))
+        timestamps()
+    }
     stages {
         stage('connection') {
             steps {
@@ -8,7 +17,7 @@ pipeline {
         }
         stage('sql-request') {
             steps {
-              sql: select * from fr.fram_acc limit 1
+              sh select * from fr.fram_acc limit 1
             }
         }
         stage('3rdstep') {
