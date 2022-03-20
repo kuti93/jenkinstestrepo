@@ -6,24 +6,13 @@ pipeline {
     agent any
     triggers {pollSCM('*****')} //проверка кода в гите каждую минуту
     options{
-        buildDiscarder(logRotator(numToKeepStr:'10', artifactNumToKeepStr:'10'))
-        timestamps()
+        buildDiscarder(logRotator(numToKeepStr:'10', artifactNumToKeepStr:'10')) //логирования и создание артифактов
+        timestamps() //пометка времени в исполнении шагов женкинса
     }
-    stages {
-        stage('connection') {
+        stage('build docker') {
+        //собирания докер билда через докерфайл которое в гите
             steps {
-                sh 'mysql --user rfamro --host mysql-rfam-public.ebi.ac.uk --port 4497 --database Rfam'
-            }
-        }
-        stage('sql-request') {
-            steps {
-              sh select * from fr.fram_acc limit 1
-            }
-        }
-        stage('3rdstep') {
-        //build docker trough Dockerfile
-            steps {
-            echo "==========Building NGINX"
+            echo "==========Building NGINX from hosted git============"
             dir (''){
             sh 'docker build .'
                 }
